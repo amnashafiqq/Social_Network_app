@@ -72,10 +72,11 @@ def login(request):
 @api_view(['POST'])
 def create_post(request):
     serializer = PostSerializer(data=request.data)
-
     if serializer.is_valid():
         post = serializer.save(user=request.user)
-        return JsonResponse({'id': post.id, 'message': 'Post created successfully'})
+        return JsonResponse(serializer.data,
+                        safe=False, 
+                        status=status.HTTP_201_CREATED)
     else:
         return JsonResponse(serializer.errors, status=400)
     
