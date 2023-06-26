@@ -2,9 +2,6 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import Group, Permission
 from django.utils.translation import gettext_lazy as _
-
-
-
 class User(AbstractUser):
     email = models.EmailField(unique=True)
     def __str__(self):
@@ -17,14 +14,14 @@ class User(AbstractUser):
             'The groups this user belongs to. A user will get all permissions '
             'granted to each of their groups.'
         ),
-        related_name='custom_user_set'  # Add related_name argument
+        related_name='custom_user_set'  
     )
     user_permissions = models.ManyToManyField(
         Permission,
         verbose_name=_('user permissions'),
         blank=True,
         help_text=_('Specific permissions for this user.'),
-        related_name='custom_user_set'  # Add related_name argument
+        related_name='custom_user_set'  
     )
 
 class Post(models.Model):
