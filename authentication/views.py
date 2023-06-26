@@ -13,6 +13,7 @@ from authentication.serializers import PostSerializer
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from authentication.models import Post
+from rest_framework import status
 
 class UserCreateView(generics.CreateAPIView):
     queryset = User.objects.all()
