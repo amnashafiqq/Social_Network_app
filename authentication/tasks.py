@@ -1,12 +1,13 @@
 import requests
 from dateutil.parser import parse as date_parse
-from social_network_app.celery import shared_task
+# from authentication.celery import shared_task
 from authentication.models import User
+import holidays
 
 API_ENDPOINT = 'https://ipgeolocation.abstractapi.com/v1'
-API_KEY = 'YOUR_API_KEY' 
+API_KEY = '44795dede54942f682b687848f291002' 
 
-@shared_task
+# @shared_task
 def enrich_user_geolocation(user_id):
     user = User.objects.get(id=user_id)
     ip_address = user.last_login.ip_address 
@@ -27,3 +28,13 @@ def enrich_user_geolocation(user_id):
         user.country = country
         user.is_holiday = is_holiday
         user.save()
+
+def check_holiday(date, country):
+    # Get the list of holidays for the specified country
+    country_holidays = holidays.CountryHoliday(country)
+    
+    # Check if the given date is a holiday
+    if date in country_holidays:
+        return True
+    else:
+        return False

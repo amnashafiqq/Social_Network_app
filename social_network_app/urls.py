@@ -18,7 +18,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 from authentication.views import UserCreateView, TokenObtainPairView
-from social_network_app.views import create_post, get_user_data,create_post, like_post, unlike_post
+from authentication.views import create_post, get_user_data,create_post, like_post, unlike_post
 
 
 urlpatterns = [
@@ -30,7 +30,4 @@ urlpatterns = [
     path('posts/<int:post_id>/like/', like_post, name='like_post'),
     path('posts/<int:post_id>/unlike/', unlike_post, name='unlike_post'),
     path('user/', get_user_data, name='get_user_data'),
-
-
-
 ]

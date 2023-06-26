@@ -39,8 +39,9 @@ SECRET_KEY = 'az_&vp0*tt(76fas++5i#kw0l08ttuv2gn=q6b!i^6du3qd2li'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-CELERY_BROKER_URL = 'redis://localhost:6379'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_TIMEZONE = 'UTC'
 
 # Application definition
 
