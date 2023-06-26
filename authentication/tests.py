@@ -8,10 +8,9 @@ class PostAPITestCase(TestCase):
         self.client = APIClient()
 
     def test_create_post(self):
-        # Create a user and authenticate
         user = User.objects.create_user(username='testuser', password='testpassword')
         self.client.force_authenticate(user=user)
-        # Send a POST request to create a post
+       
         data = {'content': 'Test post', 'user': user.id}
         response = self.client.post('/posts/create/', data)
         
@@ -21,14 +20,10 @@ class PostAPITestCase(TestCase):
         self.assertEqual(post.content, 'Test post')
         self.assertEqual(post.user, user)
 
-    # def test_get_post(self):
-       
-    #     user = User.objects.create_user(username='testuser', password='testpassword')
-    #     post = Post.objects.create(content='Test post', user=user)
+    def test_like_post(self):     
+        user = User.objects.create_user(username='testuser', password='testpassword')
+        post = Post.objects.create(content='Test post', user=user)
+        self.client.force_authenticate(user=user)
+        response = self.client.post(f'/posts/{post.id}/like')
+        self.assertEqual(response.status_code, status.HTTP_301_MOVED_PERMANENTLY)
 
-    #     response = self.client.get(f'/posts/{post.id}/')
-
-    #     # Check the response status code and content
-    #     self.assertEqual(response.status_code, status.HTTP_200_OK)
-    #     self.assertEqual(response.data['content'], 'Test post')
-    #     self.assertEqual(response.data['user'], user.id)
